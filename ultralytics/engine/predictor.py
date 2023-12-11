@@ -264,6 +264,10 @@ class BasePredictor:
                 with profilers[1]:
                     preds = self.inference(im, *args, **kwargs)
 
+                # Access optionnally to yolo output matrix 
+                self.raw_preds = preds
+                self.run_callbacks('on_predict_postprocess_start')
+
                 # Postprocess
                 with profilers[2]:
                     self.results = self.postprocess(preds, im, im0s)
